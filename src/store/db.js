@@ -1,0 +1,20 @@
+export let records = [
+    { id: 0, name: '1', unitPrice: 3.34, unitsInStock: 0, Discontinued: true },
+    { id: 1, name: '2', unitPrice: 18.3, unitsInStock: 39, Discontinued: false },
+    { id: 2, name: '3', unitPrice: 24.45, unitsInStock: 32, Discontinued: true },
+    { id: 3, name: '4', unitPrice: 3.43, unitsInStock: 0, Discontinued: true },
+    { id: 4, name: '5', unitPrice: 18.3, unitsInStock: 39, Discontinued: false },
+    { id: 5, name: '6', unitPrice: 24.54, unitsInStock: 32, Discontinued: true },
+    { id: 6, name: '7', unitPrice: 3.43, unitsInStock: 0, Discontinued: true },
+    { id: 7, name: '8', unitPrice: 18.65, unitsInStock: 39, Discontinued: false },
+    { id: 8, name: '9', unitPrice: 24.54, unitsInStock: 32, Discontinued: true },
+    { id: 9, name: '10', unitPrice: 3.23, unitsInStock: 0, Discontinued: true },
+    { id: 10, name: '11', unitPrice: 18.45, unitsInStock: 39, Discontinued: false },
+    { id: 11, name: '12', unitPrice: 24.65, unitsInStock: 32, Discontinued: true },
+    { id: 12, name: '13', unitPrice: 3.35, unitsInStock: 0, Discontinued: true },
+    { id: 13, name: '14', unitPrice: 18.54, unitsInStock: 39, Discontinued: false },
+    { id: 14, name: '15', unitPrice: 24.54, unitsInStock: 32, Discontinued: true },
+    { id: 15, name: '16', unitPrice: 3.45, unitsInStock: 0, Discontinued: true },
+    { id: 16, name: '17', unitPrice: 18.12, unitsInStock: 39, Discontinued: false },
+    { id: 17, name: '18', unitPrice: 24.87, unitsInStock: 32, Discontinued: true }
+]
