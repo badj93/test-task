@@ -57,6 +57,11 @@ export default {
         validate () {
             /* валидация входящих данных */
             if (this.record[0].name && this.record[0].unitPrice > 0 && this.record[0].unitsInStock >= 0) {
+                if (this.record[0].unitPrice !== '0.00' && this.record[0].unitPrice) {
+                    while(this.record[0].unitPrice.charAt(0) === '0') {
+                        this.record[0].unitPrice = this.record[0].unitPrice.slice(1)
+                    }
+                }
                 this.edit()
             }
             this.errors = []

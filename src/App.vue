@@ -38,12 +38,12 @@
             {{ page }}
           </button>
         </div>
-        <div class="info-lists" v-if="pagination.end + 1">Lists {{ pagination.start + 1 }} to {{ pagination.end + 1}}</div>
+        <div class="info-lists" v-if=Object.keys(this.$store.getters.getRecords).length>Lists {{ pagination.start + 1 }} to {{ pagination.end + 1}}</div>
       </div>
     <add-modal @setPageUpdate=setPage :page=pageNow></add-modal>
     <edit-modal :id=idProduct v-if=Object.keys(this.$store.getters.getRecords).length></edit-modal>
     </div>
-  </div>   
+  </div>
 </template>
 
 <script>
@@ -65,10 +65,6 @@ export default {
     this.setPage(1)
   },
   methods: {
-    showEditModal (id) {
-    },
-    addRecord () {
-    },
     setPage (page) {
       this.pageNow = page
       this.pagination = this.paginator(Object.keys(this.$store.getters.getRecords).length, page)
@@ -84,7 +80,7 @@ export default {
       end = Math.min(start + this.perPage - 1, totalItems - 1)
       return {
         currentPage: currentPage,
-        start: start, 
+        start: start,
         end: end,
         /* кол-во кнопок пагинации */
         pages: Math.ceil(totalItems / this.perPage)
@@ -93,6 +89,11 @@ export default {
     remove (id) {
       this.$store.dispatch('removeRecord', id)
       this.setPage(this.pageNow)
+      if (this.pagination.start > this.pagination.end) {
+        this.pagination.start = Object.keys(this.$store.getters.getRecords).length - 3
+        this.pagination.end = Object.keys(this.$store.getters.getRecords).length
+      }
+
     },
     edit (id) {
       this.idProduct = id
@@ -103,11 +104,10 @@ export default {
       return this.paginate(this.$store.getters.getRecords)
     }
   },
-  components: { 
+  components: {
     'edit-modal' : EditModal,
     'add-modal' : AddModal
   }
 }
 </script>
 
- 

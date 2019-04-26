@@ -20,6 +20,9 @@
     color: white;
     transition: .3s;
 }
+.content table {
+    border: 1px solid #3343a4;
+}
 .content .header button:hover {
     background-color: #4c59ad;
     transition: .3s;
@@ -30,7 +33,7 @@
 }
 .content form label{
     display: block;
-    width: 300px;
+    width: 350px;
     margin: 0 auto;
     padding-bottom: 10px;
 }
@@ -41,10 +44,10 @@
     left: 10px;
 }
 .content form label:nth-child(2) input{
-    left: 44px;
+    left: 43px;
 }
 .content form label:nth-child(3) input{
-    left: 16px;
+    left: 14px;
 }
 .content form label:nth-child(4) input{
     width: 20px;

@@ -9,7 +9,7 @@
             <label for="name">Product Name
                 <input id="name" name="name" type="text" v-model="name">
             </label>
-            
+
             <label for="price">Unit Price
                 <input id="price" name="price" type="number" v-model="price">
             </label>
@@ -25,7 +25,7 @@
         <div class="button-group-form">
             <b-button @click="$bvModal.hide('show-add')">cancel</b-button>
             <b-button @click="validate">add</b-button>
-        </div> 
+        </div>
     </b-modal>
 </template>
 
@@ -74,9 +74,14 @@ export default {
             this.priceStock = 0
             this.discont = false
         },
-        validate (e) {
+        validate () {
             /* валидация входящих данных */
             if (this.name && this.price > 0 && this.priceStock >= 0) {
+                if (this.price !== '0.00' && this.price) {
+                    while(this.price.charAt(0) === '0') {
+                        this.price = this.price.slice(1)
+                    }
+                }
                 this.add()
             }
             this.errors = []
