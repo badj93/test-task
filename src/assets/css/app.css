@@ -39,6 +39,7 @@
 }
 .content form label input{
     position: relative;
+    width: 211px;
 }
 .content form label:nth-child(1) input{
     left: 10px;
