@@ -1,23 +1,24 @@
 <template>
-    <b-modal id="show-edit" title="edit record" hide-footer v-model="showModal">
+    <b-modal id="show-edit" title="edit record" hide-footer v-model="showModal" v-if=Object.keys(this.$store.getters.getRecords).length>
         <div class="errors">
             <p v-for="(error, index) in errors" :key=index>
                 {{ error }}
             </p>
         </div>
+        <div class="loading" v-show="loading"></div>
         <form>
-            <label for="name">Product Name
+            <label for="name_edit">Product Name
                 <input id="name_edit" name="name" type="text" v-model="record[0].name">
             </label>
-            <label for="price">Unit Price
+            <label for="price_edit">Unit Price
                 <input id="price_edit" name="price" type="number" v-model="record[0].unitPrice">
             </label>
 
-            <label for="price_stock">Units In Stock
+            <label for="price_stock_edit">Units In Stock
                 <input id="price_stock_edit" name="price_stock" type="number" v-model="record[0].unitsInStock">
             </label>
 
-            <label for="discontinued">Discontinued
+            <label for="discontinued_edit">Discontinued
                 <input id="discontinued_edit" name="discontinued" type="checkbox" v-model="record[0].Discontinued">
             </label>
         </form>
@@ -38,7 +39,8 @@ export default {
             priceStock: 0,
             discont: false,
             showModal: false,
-            errors: []
+            errors: [],
+            loading: false
         }
     },
     updated () {
@@ -52,7 +54,11 @@ export default {
     },
     methods: {
         edit () {
+          this.loading = true
+          setTimeout(() => {
+            this.loading = false
             this.showModal = false
+          }, 700)
         },
         validate () {
             /* валидация входящих данных */

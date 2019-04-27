@@ -91,9 +91,11 @@ export default {
       this.setPage(this.pageNow)
       if (this.pagination.start > this.pagination.end) {
         this.pagination.start = Object.keys(this.$store.getters.getRecords).length - 3
-        this.pagination.end = Object.keys(this.$store.getters.getRecords).length
+        this.pagination.end = Object.keys(this.$store.getters.getRecords).length - 1
       }
-
+      if (this.pagination.start <= 0) {
+        this.pagination.start = 0
+      }
     },
     edit (id) {
       this.idProduct = id

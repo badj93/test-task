@@ -7,6 +7,9 @@ export default {
     mutations: {
         addRecord (state, payload) {
             state.records.unshift(payload)
+            for (let i in state.records) {
+                state.records[i].id = i
+            }
         },
         removeRecord (state, payload) {
             state.records = state.records.filter(item => {
