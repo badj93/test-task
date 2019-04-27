@@ -23,7 +23,7 @@
             </label>
         </form>
         <div class="button-group-form">
-            <b-button @click="$bvModal.hide('show-add')">cancel</b-button>
+            <b-button @click="closeModal">cancel</b-button>
             <b-button @click="validate">add</b-button>
         </div>
     </b-modal>
@@ -50,6 +50,9 @@ export default {
         }
         if (this.priceStock < 0) {
             this.priceStock = 0
+        }
+        if (!this.showModal) {
+          this.clear()
         }
     },
     methods: {
@@ -97,6 +100,10 @@ export default {
                 this.errors.push('Price Stock sub zero or = 0')
                 return false
             }
+        },
+        closeModal () {
+          this.showModal = false
+          this.clear();
         }
     }
 }

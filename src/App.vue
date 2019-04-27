@@ -14,13 +14,13 @@
             <th></th>
           </thead>
           <tbody>
-            <tr v-for="product in records" :key=product.id>
+            <tr v-for="(product) in recordList" :key=product.id>
               <td>{{ product.name }}</td>
               <td>${{ product.unitPrice }}</td>
               <td>{{ product.unitsInStock }}</td>
               <td>{{ product.Discontinued }}</td>
               <td class="buttons">
-                <b-button v-b-modal.show-edit class="btn btn-light" @click="edit(product.id)"><span class="oi oi-pencil"></span> EDIT</b-button>
+                <b-button v-b-modal.show-edit class="btn btn-light" @click="edit(product)"><span class="oi oi-pencil"></span> EDIT</b-button>
                 <b-button class="btn btn-light" @click="remove(product.id)"><span class="oi oi-x"></span> DELETE</b-button>
               </td>
             </tr>
@@ -40,8 +40,19 @@
         </div>
         <div class="info-lists" v-if=Object.keys(this.$store.getters.getRecords).length>Lists {{ pagination.start + 1 }} to {{ pagination.end + 1}}</div>
       </div>
-    <add-modal @setPageUpdate=setPage :page=pageNow></add-modal>
-    <edit-modal :id=idProduct v-if=Object.keys(this.$store.getters.getRecords).length></edit-modal>
+    <add-modal
+            @setPageUpdate=setPage
+            :page=pageNow
+    ></add-modal>
+    <edit-modal
+            :name="nameProduct"
+            :price="unitPrice"
+            :priceStock="unitsInStock"
+            :discount="discontinued"
+            @getRecords="getRecords"
+            :id=idProduct
+            v-if=Object.keys(this.$store.getters.getRecords).length
+    ></edit-modal>
     </div>
   </div>
 </template>
@@ -58,8 +69,17 @@ export default {
       perPage: 3,
       pagination: {},
       idProduct: 0,
-      pageNow: 1
+      pageNow: 1,
+      editIndex: 0,
+      recordList: [],
+      nameProduct: '',
+      unitPrice: 0,
+      unitsInStock: 0,
+      discontinued: false
     }
+  },
+  mounted () {
+    this.getRecords()
   },
   created () {
     this.setPage(1)
@@ -68,6 +88,7 @@ export default {
     setPage (page) {
       this.pageNow = page
       this.pagination = this.paginator(Object.keys(this.$store.getters.getRecords).length, page)
+      this.getRecords()
     },
     paginate (data) {
       /* режем массив записей согласно start и end */
@@ -89,16 +110,28 @@ export default {
     remove (id) {
       this.$store.dispatch('removeRecord', id)
       this.setPage(this.pageNow)
+
       if (this.pagination.start > this.pagination.end) {
         this.pagination.start = Object.keys(this.$store.getters.getRecords).length - 3
         this.pagination.end = Object.keys(this.$store.getters.getRecords).length - 1
+        this.getRecords()
       }
+
       if (this.pagination.start <= 0) {
+        this.getRecords()
         this.pagination.start = 0
       }
     },
-    edit (id) {
-      this.idProduct = id
+    edit (product) {
+      this.idProduct = product.id
+      this.nameProduct = product.name
+      this.unitPrice = product.unitPrice
+      this.unitsInStock = product.unitsInStock
+      this.discontinued = product.Discontinued
+      this.getRecords()
+    },
+    getRecords () {
+      this.recordList = this.paginate(this.$store.getters.getRecords)
     }
   },
   computed: {
